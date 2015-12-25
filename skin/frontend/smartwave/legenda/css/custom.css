@@ -347,6 +347,7 @@ input.input-text:focus {
   padding: 50px;
   -moz-text-align-last: center;
   text-align: center;
+  text-align-last: center;
   
 }
 #toyfinder-sex input:checked +.toyfinder-sex {
