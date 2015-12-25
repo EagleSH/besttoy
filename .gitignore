@@ -1,0 +1,6 @@
+var/
+media/
+downloader/
+myadmin/
+app/etc/local.xml
+.htaccess

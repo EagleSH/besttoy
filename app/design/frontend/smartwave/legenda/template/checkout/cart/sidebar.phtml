@@ -1,0 +1,111 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Shoping cart sidebar
+ *
+ * @see Mage_Checkout_Block_Cart_Sidebar
+ */
+
+ /** updated from version 1.1.6 **/
+?>
+
+<?php //echo Mage::getDesign()->getSkinUrl('images/search.png'); ?>
+<?php $store = Mage::app()->getStore();
+$code  = $store->getCode(); ?>
+<?php $favEn = (Mage::getStoreConfig('legenda_setting/general_settings/favicon',$code) == 1)?'enable':'false'; ?>
+<div class="shopping-cart a-right" data-fav-badge="<?php echo $favEn?>">
+
+<?php 
+    $_cartQty = $this->getSummaryCount();
+    if (!$_cartQty)
+        $_cartQty = 0;
+ ?>
+    <div class="cart-sum" data-items-count="<?php echo $_cartQty ?>">
+        <a href="<?php echo $this->getUrl('checkout/cart') ?>" title="<?php echo $this->__('Cart') ?>" >
+            <img src="<?php echo Mage::getDesign()->getSkinUrl('images/cart.png'); ?>"><span class="cart-qty"><?php echo $_cartQty ?></span>
+		</a>
+			<span id="header-cart-nodisplay" style="display: block; float: right; text-align: left; text-transform: none; margin-left: 10px;">В корзине: <strong><?php echo $_cartQty ?> <?php echo  getNumEnding($_cartQty, array('товар', 'товара', 'товаров')); ?></strong>
+			<br>
+			на сумму <strong><?php echo Mage::helper('checkout')->formatPrice($this->getSubtotal()) ?></strong>
+			<br>
+			<button type="button" title="<?php echo $this->__('Checkout') ?>" class="button filled" onclick="setLocation('<?php echo $this->getCheckoutUrl() ?>')"><span><span class="header-checkout-btn"><?php echo $this->__('Checkout') ?></span></span></button>  
+			</span>
+
+        
+    </div>
+<?php /*?>
+    <div class="cart-popup-container">
+        <div class="cart-popup">
+					<?php echo  getNumEnding($_cartQty, array('товар', 'товара', 'товаров')); ?>
+            <?php $_items = $this->getRecentItems() ?>
+            <?php if(count($_items)): ?>        
+                <div id="cart-sidebar" class="products-small">
+                    <?php foreach($_items as $_item): ?>
+                        <?php echo $this->getItemHtml($_item) ?>
+                    <?php endforeach; ?>
+                </div>        
+                <script type="text/javascript">decorateList('cart-sidebar', 'none-recursive')</script>
+                <div class="subtotal">
+                    <?php echo $this->__('Total: ') ?>
+                    <span class="price"><?php echo Mage::helper('checkout')->formatPrice($this->getSubtotal()) ?></span>
+                </div>
+                <a href="<?php echo $this->getUrl('checkout/cart') ?>" class="button left"><?php echo $this->__('View Cart') ?></a>
+            <?php else: ?>
+                <p class="empty a-center"><?php echo $this->__('No products in the cart.') ?></p>
+            <?php endif ?>        
+            <?php if($_cartQty && $this->isPossibleOnepageCheckout()): ?>
+                <button type="button" title="<?php echo $this->__('Checkout') ?>" class="button filled right" onclick="setLocation('<?php echo $this->getCheckoutUrl() ?>')"><span><span><?php echo $this->__('Checkout') ?></span></span></button>        
+            <?php endif ?>
+        </div>
+    </div>
+<?php */?>
+</div>
+<?php
+function getNumEnding($number, $endingArray)
+{
+    $number = $number % 100;
+    if ($number >= 11 && $number <= 19) {
+        $ending = $endingArray[2];
+    } else {
+        $i = $number % 10;
+        switch ($i) {
+            case (1):
+                $ending = $endingArray[0];
+                break;
+            case (2):
+            case (3):
+            case (4):
+                $ending = $endingArray[1];
+                break;
+            default:
+                $ending = $endingArray[2];
+        }
+    }
+    return $ending;
+}
+
+?>

@@ -1,0 +1,59 @@
+
+<?php $menuHelper = Mage::helper('megamenu'); ?>
+<?php $menuData = $menuHelper->getMenuData(); extract($menuData); ?>
+<?php 
+$legendaHelper = Mage::helper('legenda'); 
+$menuType = $legendaHelper->getConfig('header_settings/header_type'); 
+?>
+<div class="header-wrapper <?php echo $menuType ?>">
+<!--<div class="container">
+    <div class="menu-icon hidden-md hidden-lg"><i class="fa fa-bars"></i></div>
+</div>-->
+
+<div class="main-nav visible-md visible-lg">
+    <div class="double-border">
+        <div class="container">            
+            <div class="menu-wrapper">
+                <div class="logo-with-menu">
+                    <?php if ($menuHelper->getIsHomePage()):?>
+                    <h1 class="logo"><strong><?php echo $menuHelper->getLogoAlt() ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $menuHelper->getLogoAlt() ?>"><img src="<?php echo $menuHelper->getLogoSrc() ?>" alt="<?php echo $menuHelper->getLogoAlt() ?>" /></a></h1>
+                    <?php else:?>
+                        <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $menuHelper->getLogoAlt() ?>" class="logo"><strong><?php echo $menuHelper->getLogoAlt() ?></strong><img src="<?php echo $menuHelper->getLogoSrc() ?>" alt="<?php echo $menuHelper->getLogoAlt() ?>" /></a>
+                    <?php endif?>
+                </div>
+                <div class="menu-all-pages-container">
+                    <ul class="menu megamenu">
+						<div id="toy-wrapper">
+							<?php echo $this->getLayout()->createBlock('catalogsearch/advanced_form')->setTemplate('catalogsearch/toyfinder.phtml')->toHtml(); ?>
+						</div>
+                        <?php echo $menuHelper->getMenuContent(); ?>
+						<?php echo $this->getChildHtml('topSearch') ?>
+                    </ul>
+						
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var SW_MENU_POPUP_WIDTH = <?php echo $_popupWidth; ?>;
+//]]>
+</script>
+<script>
+// jQuery(".megamenu-titles-center").on({
+    // mouseenter: function () {
+		// jQuery(this).prev().css({'background':'#8db6a5','position':'absolute','width':'50px'});
+		// jQuery(this).next().css({'background':'#8db6a5','position':'absolute','width':'50px','margin-left':'-50px'});
+       // console.log(jQuery(this).prev());
+       // console.log(jQuery(this).next());
+    // },
+    // mouseleave: function () {
+		// jQuery(this).prev().css({'background':'#cee3da ','position':'relative','width':'0px'});
+		// jQuery(this).next().css({'background':'#cee3da ','position':'relative','width':'0px','margin-left':'0px'});
+    // }
+// });
+</script>
